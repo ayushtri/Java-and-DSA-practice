@@ -13,6 +13,88 @@ public class DoublyLinkedList {
             this.next=null;
         }
     }
+    int length(){
+        Node p=head;
+        int length=0;
+        while(p!=null){
+            length++;
+            p=p.next;
+        }
+        return length;
+    }
+    void insert(int data, int pos){
+        Node t,p;
+        if(pos<0 || pos>length()){
+            System.out.println("Invalid position, Length of CLL is " + length());
+            return;
+        }
+        if(pos==0){
+            t=new Node(data);
+            if(head==null){
+                head=t;
+                return;
+            }
+            t.prev=null;
+            t.next=head;
+            head.prev=t;
+            head=t;
+        }
+        else{
+            p=head;
+            t=new Node(data);
+            for(int i=0;i<pos-1;i++){
+                p=p.next;
+            }
+            t.next=p.next;
+            t.prev=p;
+            if(p.next!=null){
+                p.next.prev=t;
+            }
+            p.next=t;
+        }
+    }
+    void insertBeforeHead(int data){
+        Node t = new Node(data);
+        if(head==null){
+            head=t;
+            return;
+        }
+        t.prev=null;
+        t.next=head;
+        head.prev=t;
+        head=t;
+    }
+    void arraytoDLL(int[] arr){
+        for(int i= arr.length-1;i>=0;i--){
+            insertBeforeHead(arr[i]);
+        }
+    }
+    int delete(int pos){
+        Node p;
+        if(head==null || pos<0 || pos>length()){
+            System.out.println("Bad Request, Size of cll is "+length());
+            return -1;
+        }
+        if(pos==1){
+            p=head;
+            head=head.next;
+            int x = p.data;
+            p=null;
+            if(head!=null) head.prev=null;
+            return x;
+        }
+        else{
+            p=head;
+            for(int i=0;i<pos-1;i++){
+                p=p.next;
+            }
+            p.prev.next=p.next;
+            if(p.next!=null) p.next.prev=p.prev;
+            int x = p.data;
+            p=null;
+            return x;
+        }
+    }
     void Display(){
         Node p = head;
         if(head==null){
@@ -40,12 +122,14 @@ public class DoublyLinkedList {
     }
 
     public static void main(String[] args) {
+        int[] a = {1,2,3,4,5};
         DoublyLinkedList dl1 = new DoublyLinkedList();
-        Node test = new Node(5);
-        Node test2 = new Node(10);
-        dl1.head=test;
-        dl1.head.next=test2;
+        dl1.arraytoDLL(a);
+        dl1.insert(6,5);
+        dl1.insert(7,6);
         dl1.Display();
+        System.out.println(dl1.delete(1));
+        System.out.println(dl1.delete(6));
         dl1.rDisplay(dl1.head);
     }
 }
