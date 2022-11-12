@@ -95,6 +95,18 @@ public class DoublyLinkedList {
             return x;
         }
     }
+    void reverse(){
+        Node p=head,temp;
+        while(p!=null){
+            temp=p.next;
+            p.next=p.prev;
+            p.prev=temp;
+            p=p.prev;
+            if(p!=null && p.next==null){
+                head=p;
+            }
+        }
+    }
     void Display(){
         Node p = head;
         if(head==null){
@@ -131,5 +143,7 @@ public class DoublyLinkedList {
         System.out.println(dl1.delete(1));
         System.out.println(dl1.delete(6));
         dl1.rDisplay(dl1.head);
+        dl1.reverse();
+        dl1.Display();
     }
 }

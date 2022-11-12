@@ -1,61 +1,25 @@
 package com.company.DSA;
 
-import java.sql.SQLOutput;
-import java.util.Locale;
+import java.util.Arrays;
+import java.util.Scanner;
 
-public class rough{
+class Solution{
+    public String prefix(String[] str){
+        if(str.length==0) return "";
+        Arrays.sort(str);
+        String first = str[0];
+        String last = str[str.length-1];
+        int c = 0;
+        while(c<first.length() && first.charAt(c)==last.charAt(c))
+            c++;
+        return c==0 ? "" :first.substring(0,c);
+    }
+}
+public class rough {
     public static void main(String[] args) {
-        //q2
-        /*String input = "Praveen Kumar Sharma";
-        String[] temp = input.split(" ");
-        String output="";
-        int evenstart=0,oddstart=0;
-        for(int i=0;i<temp.length;i++){
-            if(i%2==0){
-                for(int j=evenstart;j<temp[i].length();j++){
-                    if(j%2==0){
-                        output+=temp[i].charAt(j);
-                    }
-                }
-                evenstart++;
-            }
-            else{
-                for(int j=oddstart;j<temp[i].length();j++){
-                    if(!(j%2==0)){
-                        output+=temp[i].charAt(j);
-                    }
-                }
-                oddstart++;
-            }
-        }
-        System.out.println(output);*/
-
-        //q3
-        /*String input="Ananya Anuragi";
-        String output="";
-        for(int i=0;i<input.length();i++){
-            if(input.charAt(i)==' '){
-                output=output+" ";
-                continue;
-            }
-            output=output+((int)input.charAt(i));
-            
-        }
-        System.out.println(output);*/
-
-        //q4
-        /*String input= "Ananya Anuragi";
-        input=input.toLowerCase();
-        String output="";
-        for(int i=0;i<input.length();i++){
-            if(input.charAt(i)==' '){
-                output=output+" ";
-                continue;
-            }
-            output=output+(input.charAt(i)-96); //typecasting ki zarurat nhi hai
-        }
-        System.out.println(output);*/
-
-        //q5
+        Solution s = new Solution();
+        Scanner sc = new Scanner(System.in);
+        String[] str = {"911","91178","9117623","9112"};
+        System.out.println(s.prefix(str));
     }
 }
