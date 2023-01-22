@@ -196,6 +196,37 @@ public class recQue {
         String pre = infixPrefix1(rStr);
         return strRev(pre);
     }
+    static boolean isPalindrome(String str){
+        if(str.length()==0 || str.length()==1){
+            return true;
+        }
+        if(str.charAt(0)==str.charAt(str.length()-1)){
+           return isPalindrome(str.substring(1,str.length()-1));
+        }
+        return false;
+    }
+    static int countPathsMaze(int i,int j,int m, int n){
+        if(i==m || j==n) return 0;
+        if(i==m-1 && j==n-1) return 1;
+        int downwards = countPathsMaze(i,j+1,m,n);
+        int right = countPathsMaze(i+1,j,m,n);
+        return downwards + right;
+    }
+    static int placeTilesProb(int n,int m){
+        if(n==m) return 2;
+        if(n<m) return 1;
+        int vertical = placeTilesProb(n-m,m);
+        int horizontal = placeTilesProb(n-1,m);
+        return vertical+horizontal;
+    }
+    static int waysToInvite(int n){
+        if(n<=1){
+            return 1;
+        }
+        int singleGuest = waysToInvite(n-1);
+        int pairGuest = (n-1)*waysToInvite(n-2);
+        return singleGuest+pairGuest;
+    }
     public static void main(String[] args) {
         reverse("abcd","abcd".length()-1);
         firstLastOCC("abbbbccccad",0,'a');
@@ -212,5 +243,10 @@ public class recQue {
         String expression = "A+B/C*(D+E)-F";
         System.out.println(infixPostfix(expression));
         System.out.println(infixPrefix2(expression));
+        String test1 = "abcba";
+        System.out.println(isPalindrome(test1));
+        System.out.println(countPathsMaze(0,0,3,3));
+        System.out.println(placeTilesProb(4,2));
+        System.out.println(waysToInvite(4));
     }
 }
